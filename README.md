@@ -16,8 +16,8 @@ class KonsentExampleTests : ChromeAcceptanceTest(preamble(
     val duncan = actorNamed("Duncan")
 
     @Test fun `Example_dot_com loads`() {
-        given(duncan).loadsThePageAt("http://example.com")
-        then(duncan) {
+        Given(duncan).loadsThePageAt("http://example.com")
+        Then(duncan) {
             shouldSee(::`the page location`, pathContains("example.com"))
             shouldSee(::`the page title`, equalTo("Example Domain"))
             shouldSee(::`the page content`, containsALink("More information...", "http://www.iana.org/domains/example"))
@@ -25,9 +25,9 @@ class KonsentExampleTests : ChromeAcceptanceTest(preamble(
     }
 
     @Test fun `Following a link from example_dot_com`() {
-        given(duncan).loadsThePageAt("http://example.com")
-        wheN(duncan).followsTheLink("More information...", "http://www.iana.org/domains/example")
-        then(duncan).shouldSee(::`the page location`, equalTo(URI("http://www.iana.org/domains/reserved")))
+        Given(duncan).loadsThePageAt("http://example.com")
+        When(duncan).followsTheLink("More information...", "http://www.iana.org/domains/example")
+        Then(duncan).shouldSee(::`the page location`, equalTo(URI("http://www.iana.org/domains/reserved")))
     }
 
     @Test fun `Dispensing with the given when then`() {
