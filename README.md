@@ -9,9 +9,9 @@ shows how to write a test.
 
 ```kotlin
 @FixMethodOrder(MethodSorters.JVM)
-class KonsentExampleTests : ChromeAcceptanceTest(null,
+class KonsentExampleTests : ChromeAcceptanceTest(preamble(
     "As a developer named Duncan",
-    "I want to know that example.com is up and running") {
+    "I want to know that example.com is up and running")) {
 
     val duncan = actorNamed("Duncan")
 
