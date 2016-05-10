@@ -2,10 +2,12 @@ package com.oneeyedmen.konsent
 
 import com.natpryce.hamkrest.equalTo
 import com.oneeyedmen.konsent.webdriver.*
+import org.junit.FixMethodOrder
 import org.junit.Test
+import org.junit.runners.MethodSorters
 import java.net.URI
 
-
+@FixMethodOrder(MethodSorters.JVM)
 class KonsentExampleTests : ChromeAcceptanceTest(null,
     "As a developer named Duncan",
     "I want to know that example.com is up and running") {
