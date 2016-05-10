@@ -7,6 +7,7 @@ import org.junit.Test
 import org.junit.runners.MethodSorters
 import java.net.URI
 
+//README_TEXT
 @FixMethodOrder(MethodSorters.JVM)
 class KonsentExampleTests : ChromeAcceptanceTest(null,
     "As a developer named Duncan",
@@ -34,5 +35,5 @@ class KonsentExampleTests : ChromeAcceptanceTest(null,
         duncan.he.followsTheLink("More information...", "http://www.iana.org/domains/example")
         duncan.shouldSee(::`the page location`, equalTo(URI("http://www.iana.org/domains/reserved")))
     }
-
 }
+//README_TEXT
