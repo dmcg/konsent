@@ -1,0 +1,7 @@
+Feature: Konsent Example Tests
+
+    Scenario: Example_dot_com loads
+        Given James loads the page at "http://example.com"
+        Then James sees the page location "location contains "example.com"
+        and James sees the page title is equal to "Example Domain"
+        and James sees the page content contains a link [More information...](http://www.iana.org/domains/example)
