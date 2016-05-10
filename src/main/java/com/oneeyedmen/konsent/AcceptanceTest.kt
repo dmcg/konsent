@@ -4,8 +4,10 @@ import com.oneeyedmen.okeydoke.junit.ApprovalsRule
 import org.junit.ClassRule
 import org.junit.Rule
 
-open class AcceptanceTest(val name: String? = null, val preamble: Array<String> = emptyArray<String>())
+open class AcceptanceTest(val name: String? = null, val preamble: Preamble?)
 {
+    constructor(preamble: Preamble) : this(null, preamble)
+
     companion object {
         @ClassRule @JvmField val feature = FeatureRule(ApprovalsRule.usualRule())
     }

@@ -50,7 +50,7 @@ class FirstScenarioRule(private val test: AcceptanceTest, recorder: FeatureRecor
     private fun recordFeatureStart() {
         recorder.featureStart(
             test.name ?: nameFromClassName(test),
-            *test.preamble)
+            *(test.preamble?.strings ?: emptyArray()))
     }
 }
 
