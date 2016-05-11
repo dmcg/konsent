@@ -6,5 +6,5 @@ package com.oneeyedmen.konsent
 @Target(AnnotationTarget.FUNCTION, AnnotationTarget.PROPERTY_GETTER, AnnotationTarget.PROPERTY_SETTER)
 annotation class Scenario(
     val index: Int,
-    val name: String
+    val name: String = ""
 )
