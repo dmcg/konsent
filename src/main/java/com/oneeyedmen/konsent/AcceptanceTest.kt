@@ -6,7 +6,7 @@ import org.junit.Rule
 
 open class AcceptanceTest(val name: String? = null, val preamble: Preamble?)
 {
-    constructor(preamble: Preamble) : this(null, preamble)
+    constructor(preamble: Preamble? = null) : this(null, preamble)
 
     companion object {
         @ClassRule @JvmField val feature = FeatureRule(ApprovalsRule.usualRule())
