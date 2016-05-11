@@ -1,0 +1,5 @@
+Feature: Class
+    As a developer named Duncan
+    I want there to be a preamble in the output
+
+    Scenario: first

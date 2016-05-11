@@ -15,4 +15,3 @@ class TestRunnerAddsRuleTests {
     @Scenario(index = 4) fun aaa() { }
 
 }
-

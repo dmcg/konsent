@@ -46,7 +46,12 @@ class MyFeatureRule(private val approvalsRule: ApprovalsRule) : TestWatcher() {
     override fun starting(description: Description) {
         approvalsRule.starting(description)
         recorder = TranscriptFeatureRecorder(approvalsRule.transcript())
-        recorder.featureStart(nameFromClassName(description.testClass))
+        recorder.featureStart(nameFromClassName(description.testClass), *preambleFor(description.testClass))
+    }
+
+    private fun preambleFor(testClass: Class<*>): Array<String> {
+        val preamble = testClass.getAnnotation(Preamblex::class.java)
+        return listOf(preamble.p1, preamble.p2, preamble.p3).filter { it.isNotBlank() }.toTypedArray()
     }
 
     override fun succeeded(description: Description) {
