@@ -6,7 +6,7 @@ import org.junit.runner.RunWith
 @RunWith(Konsent::class)
 class TestRunnerOrderingTests : AcceptanceTest() {
 
-§    @Scenario(index = 1) fun second() { }
+    @Scenario(index = 1) fun second() { }
 
     @Scenario(index = 0) fun first() { }
 
