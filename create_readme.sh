@@ -29,4 +29,6 @@ cat src/test/java/com/oneeyedmen/konsent/KonsentExampleTests.approved >> README.
 
 echo "
 \`\`\`
+
+Konsent is available at Maven central.
 " >> README.md

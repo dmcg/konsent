@@ -65,3 +65,5 @@ Feature: Konsent Example Tests
 
 ```
 
+Konsent is available at Maven central.
+
