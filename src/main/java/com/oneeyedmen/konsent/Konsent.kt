@@ -5,42 +5,30 @@ import com.oneeyedmen.okeydoke.junit.ApprovalsRule
 import org.junit.rules.TestRule
 import org.junit.rules.TestWatcher
 import org.junit.runner.Description
-import org.junit.runner.notification.RunNotifier
 import org.junit.runners.BlockJUnit4ClassRunner
 import org.junit.runners.model.FrameworkMethod
 
 class Konsent(klass: Class<*>) : BlockJUnit4ClassRunner(klass) {
 
-    private val featureRule = MyFeatureRule(ApprovalsRule.usualRule())
+    private val featureRule = FeatureRule(ApprovalsRule.usualRule())
 
-    override fun computeTestMethods(): List<FrameworkMethod> {
-        return testClass.getAnnotatedMethods(Scenario::class.java)
-            .map { it.butNamed(it.getAnnotation(Scenario::class.java).name)}
-            .sortedBy { it.getAnnotation(Scenario::class.java).index }
-    }
+    override fun computeTestMethods() = testClass.getAnnotatedMethods(Scenario::class.java)
+        .map { it.butNamed(it.getAnnotation(Scenario::class.java).name)}
+        .sortedBy { it.getAnnotation(Scenario::class.java).index }
 
-    override fun run(notifier: RunNotifier?) {
-        super.run(notifier)
-    }
+    // we fake a FeatureRule attached to the class
+    override fun classRules(): List<TestRule> = super.classRules().apply { add(featureRule) }
 
-    // we fake featureRule attached to class
-    override fun classRules(): List<TestRule> {
-        return super.classRules().plus(featureRule)
-    }
+    // and a ScenarioRule attached to the instance
+    override fun getTestRules(target: Any) = super.getTestRules(target).apply { add(ScenarioRule(target, featureRule.recorder)) }
 
-    // and scenarioRule attached to instance
-    override fun getTestRules(target: Any): List<TestRule> {
-        val element: MyScenarioRule = MyScenarioRule(target, featureRule.recorder)
-        return super.getTestRules(target).plus(element)
-    }
+    private fun FrameworkMethod.butNamed(newName: String) = if (newName == "") this
+        else object: FrameworkMethod(method) {
+            override fun getName(): String = newName
+        }
 }
 
-private fun FrameworkMethod.butNamed(newName: String) = if (newName == "") this
-    else object: FrameworkMethod(method) {
-        override fun getName(): String = newName
-    }
-
-class MyFeatureRule(private val approvalsRule: ApprovalsRule) : TestWatcher() {
+private class FeatureRule(private val approvalsRule: ApprovalsRule) : TestWatcher() {
 
     lateinit var recorder: FeatureRecorder
 
@@ -52,7 +40,7 @@ class MyFeatureRule(private val approvalsRule: ApprovalsRule) : TestWatcher() {
     }
 
     private fun preambleFor(testClass: Class<*>): Array<String> {
-        val preamble = testClass.getAnnotation(Preamblex::class.java)
+        val preamble = testClass.getAnnotation(Preamble::class.java)
         return if (preamble != null) listOf(preamble.p1, preamble.p2, preamble.p3).filter { it.isNotBlank() }.toTypedArray()
         else emptyArray()
     }
@@ -66,7 +54,7 @@ class MyFeatureRule(private val approvalsRule: ApprovalsRule) : TestWatcher() {
     private fun nameFromClassName(clazz: Class<*>) = clazz.simpleName.`space Out Camel Case`()
 }
 
-class MyScenarioRule(private val target: Any, private val recorder: FeatureRecorder) : TestWatcher() {
+private class ScenarioRule(private val target: Any, private val recorder: FeatureRecorder) : TestWatcher() {
     override fun starting(description: Description) {
         injectRecorder(target.javaClass, target, recorder)
         recorder.scenarioStart(description.methodName)

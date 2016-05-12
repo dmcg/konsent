@@ -2,13 +2,10 @@ package com.oneeyedmen.konsent.webdriver
 
 import com.oneeyedmen.konsent.AcceptanceTest
 import com.oneeyedmen.konsent.Actor
-import com.oneeyedmen.konsent.Preamble
 import org.junit.AfterClass
 import org.openqa.selenium.remote.RemoteWebDriver
 
-open class WebAcceptanceTest(name: String? = null, preamble: Preamble? = null) : AcceptanceTest(name, preamble) {
-
-    constructor(preamble: Preamble) : this(null, preamble)
+open class WebAcceptanceTest : AcceptanceTest() {
 
     companion object {
 
@@ -20,6 +17,6 @@ open class WebAcceptanceTest(name: String? = null, preamble: Preamble? = null) :
         }
     }
 
-    fun actorNamed(name: String) = Actor.with(name, driver, scenario.recorder)
+    fun actorNamed(name: String) = Actor.with(name, driver, recorder)
 }
 

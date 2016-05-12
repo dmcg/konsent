@@ -1,4 +1,4 @@
-Feature: Class
+Feature: Test Runner Adds Rule Tests
 
     Scenario: first
 

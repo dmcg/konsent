@@ -8,7 +8,7 @@ Feature: Konsent Example Tests
         and Duncan sees the page title is equal to "Example Domain"
         and Duncan sees the page content contains a link [More information...](http://www.iana.org/domains/example)
 
-    Scenario: Following a link from example_dot_com
+    Scenario: Following a link from example.com
         Given Duncan loads the page at "http://example.com"
         When Duncan follows the link [More information...](http://www.iana.org/domains/example)
         Then Duncan sees the page location is equal to http://www.iana.org/domains/reserved

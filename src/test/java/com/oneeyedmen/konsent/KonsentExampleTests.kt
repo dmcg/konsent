@@ -2,20 +2,19 @@ package com.oneeyedmen.konsent
 
 import com.natpryce.hamkrest.equalTo
 import com.oneeyedmen.konsent.webdriver.*
-import org.junit.FixMethodOrder
-import org.junit.Test
-import org.junit.runners.MethodSorters
+import org.junit.runner.RunWith
 import java.net.URI
 
 //README_TEXT
-@FixMethodOrder(MethodSorters.JVM)
-class KonsentExampleTests : ChromeAcceptanceTest(preamble(
+@RunWith(Konsent::class)
+@Preamble(
     "As a developer named Duncan",
-    "I want to know that example.com is up and running")) {
+    "I want to know that example.com is up and running")
+class KonsentExampleTests : ChromeAcceptanceTest() {
 
     val duncan = actorNamed("Duncan")
 
-    @Test fun `Example_dot_com loads`() {
+    @Scenario(1) fun `Example_dot_com loads`() {
         Given(duncan).loadsThePageAt("http://example.com")
         Then(duncan) {
             shouldSee(::`the page location`, pathContains("example.com"))
@@ -24,13 +23,13 @@ class KonsentExampleTests : ChromeAcceptanceTest(preamble(
         }
     }
 
-    @Test fun `Following a link from example_dot_com`() {
+    @Scenario(2, "Following a link from example.com") fun cant_have_dots_in_quoted_method_names() {
         Given(duncan).loadsThePageAt("http://example.com")
         When(duncan).followsTheLink("More information...", "http://www.iana.org/domains/example")
         Then(duncan).shouldSee(::`the page location`, equalTo(URI("http://www.iana.org/domains/reserved")))
     }
 
-    @Test fun `Dispensing with the given when then`() {
+    @Scenario(3) fun `Dispensing with the given when then`() {
         duncan.he.loadsThePageAt("http://example.com")
         duncan.he.followsTheLink("More information...", "http://www.iana.org/domains/example")
         duncan.shouldSee(::`the page location`, equalTo(URI("http://www.iana.org/domains/reserved")))

@@ -6,13 +6,13 @@ import org.junit.runner.RunWith
 @RunWith(Konsent::class)
 class TestRunnerOrderingTests : AcceptanceTest() {
 
-    @Scenario(index = 1) fun second() { }
+    @Scenario(1) fun second() { }
 
-    @Scenario(index = 0) fun first() { }
+    @Scenario(0) fun first() { }
 
-    @Scenario(index = 2) fun third() { }
+    @Scenario(2) fun third() { }
 
-    @Scenario(index = 4) fun aaa() { }
+    @Scenario(4) fun aaa() { }
 
 }
 

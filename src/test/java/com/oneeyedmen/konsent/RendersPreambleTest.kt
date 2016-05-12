@@ -4,7 +4,7 @@ import org.junit.runner.RunWith
 
 
 @RunWith(Konsent::class)
-@Preamblex("As a developer named Duncan",
+@Preamble("As a developer named Duncan",
     "I want there to be a preamble in the output")
 class RendersPreambleTest {
 
