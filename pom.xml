@@ -6,7 +6,7 @@
     <version>0.4.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>okeydoke</name>
+    <name>kosent</name>
     <description>An acceptance testing library</description>
     <url>https://github.com/dmcg/konsent</url>
     <licenses>
