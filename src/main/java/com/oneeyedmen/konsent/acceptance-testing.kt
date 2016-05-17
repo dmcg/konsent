@@ -2,7 +2,6 @@ package com.oneeyedmen.konsent
 
 import com.natpryce.hamkrest.MatchResult
 import com.natpryce.hamkrest.Matcher
-import kotlin.reflect.KFunction
 
 fun <DriverT> Given(actor: Actor<DriverT>, function: Steps<DriverT>.() -> Unit) = function.invoke(givenSteps(actor))
 fun <DriverT> Given(actor: Actor<DriverT>) = givenSteps(actor)
@@ -13,13 +12,13 @@ fun <DriverT> When(actor: Actor<DriverT>) = whenSteps(actor)
 fun <DriverT> Then(actor: Actor<DriverT>, function: Steps<DriverT>.() -> Unit) = function.invoke(thenSteps(actor))
 fun <DriverT> Then(actor: Actor<DriverT>) = thenSteps(actor)
 
-fun <T, DriverT> Steps<DriverT>.shouldSee(test: (Actor<DriverT>) -> T, matcher: Matcher<T>) {
-    val matchResult = matcher.invoke(test(actor))
+fun <T, DriverT> Steps<DriverT>.shouldSee(selector: Selector<T, DriverT>, matcher: Matcher<T>) {
+    val matchResult = matcher.invoke(selector.select(actor))
     val resultString = when(matchResult) {
         is MatchResult.Mismatch -> "[expected ${matcher.description}, ${matchResult.description}]"
         else -> matcher.description
     }
-    record("sees", (test as KFunction<*>).name, resultString)
+    record("sees", selector.description, resultString)
 }
 
 class Steps<DriverT>(val actor: Actor<DriverT>, val driver: DriverT, val recorder: FeatureRecorder, private val term: String?) {

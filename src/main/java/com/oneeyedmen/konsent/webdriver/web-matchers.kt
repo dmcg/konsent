@@ -20,8 +20,8 @@ fun <T: WebElement?> elementMatcher(description: String, predicate: (T) -> Boole
     }
 }
 
-fun containsALink(text: String, href: String) = elementMatcher<RemoteWebElement>("contains a link [$text]($href)") { element ->
-    element.findElementsByXPath("//a[@href='$href'][text()='$text']").isNotEmpty()
+fun containsALink(text: String, href: String) = elementMatcher<RemoteWebElement?>("contains a link [$text]($href)") { element ->
+    element != null && element.findElementsByXPath("//a[@href='$href'][text()='$text']").isNotEmpty()
 }
 
 val isntThere = elementMatcher<RemoteWebElement?>("isn't there") { it == null }
