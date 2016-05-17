@@ -12,7 +12,7 @@ fun <DriverT> When(actor: Actor<DriverT>) = whenSteps(actor)
 fun <DriverT> Then(actor: Actor<DriverT>, function: Steps<DriverT>.() -> Unit) = function.invoke(thenSteps(actor))
 fun <DriverT> Then(actor: Actor<DriverT>) = thenSteps(actor)
 
-fun <T, DriverT> Steps<DriverT>.shouldSee(selector: Selector<T, DriverT>, matcher: Matcher<T>) {
+fun <DriverT, MatcherT> Steps<DriverT>.shouldSee(selector: Selector<DriverT, MatcherT>, matcher: Matcher<MatcherT>) {
     val matchResult = matcher.invoke(selector.select(actor))
     val resultString = when(matchResult) {
         is MatchResult.Mismatch -> "[expected ${matcher.description}, ${matchResult.description}]"

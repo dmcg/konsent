@@ -1,19 +1,22 @@
 package com.oneeyedmen.konsent.webdriver
 
+import com.oneeyedmen.konsent.Actor
 import com.oneeyedmen.konsent.selector
 import org.openqa.selenium.remote.RemoteWebDriver
 import org.openqa.selenium.remote.RemoteWebElement
 import java.net.URI
 
-val `the page location` = selector<URI, RemoteWebDriver>("the page location") {
+fun <ResultT> webSelector(description: String, block: Actor<RemoteWebDriver>.() -> ResultT) = selector(description, block)
+
+val `the page location` = webSelector("the page location") {
     URI.create(driver.currentUrl)
 }
 
-val `the page content` = selector<RemoteWebElement?, RemoteWebDriver>("the page content") {
+val `the page content` = webSelector("the page content") {
     driver.findElementByTagName("body") as RemoteWebElement?
 }
 
-val `the page title` = selector<String, RemoteWebDriver>("the page title") {
+val `the page title` = webSelector("the page title") {
     driver.title
 }
 
