@@ -10,8 +10,8 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Maven: org.jetbrains.kotlin:kotlin-stdlib:1.0.1-2" level="project" />
-    <orderEntry type="library" name="Maven: org.jetbrains.kotlin:kotlin-runtime:1.0.1-2" level="project" />
+    <orderEntry type="library" name="Maven: org.jetbrains.kotlin:kotlin-stdlib:1.0.4" level="project" />
+    <orderEntry type="library" name="Maven: org.jetbrains.kotlin:kotlin-runtime:1.0.4" level="project" />
     <orderEntry type="library" name="Maven: com.natpryce:hamkrest:1.1.0.0" level="project" />
     <orderEntry type="library" name="Maven: org.jetbrains.kotlin:kotlin-reflect:1.0.0" level="project" />
     <orderEntry type="library" name="Maven: com.oneeyedmen:okeydoke:1.0.6" level="project" />
@@ -39,5 +39,6 @@
     <orderEntry type="library" scope="PROVIDED" name="Maven: io.netty:netty:3.5.7.Final" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.seleniumhq.selenium:selenium-support:2.53.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.seleniumhq.selenium:selenium-leg-rc:2.53.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.jetbrains.kotlin:kotlin-test:1.0.4" level="project" />
   </component>
 </module>
