@@ -8,7 +8,7 @@ import org.openqa.selenium.remote.RemoteWebElement
 import java.net.URI
 
 fun <T: WebElement?> elementMatcher(description: String, predicate: (T) -> Boolean) = object: Matcher.Primitive<T>()  {
-    override fun description() = description
+    override val description = description
     override fun invoke(actual: T): MatchResult = if (predicate(actual)) MatchResult.Match
     else MatchResult.Mismatch("was ${describeWebElement(actual)}")
 
