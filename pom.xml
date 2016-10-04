@@ -3,7 +3,7 @@
 
     <groupId>com.oneeyedmen</groupId>
     <artifactId>konsent</artifactId>
-    <version>1.0.4-SNAPSHOT</version>
+    <version>1.0.3-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>kosent</name>
