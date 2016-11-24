@@ -17,22 +17,22 @@ class KonsentExampleTests : ChromeAcceptanceTest() {
     @Scenario(1) fun `Example_dot_com loads`() {
         Given(duncan).loadsThePageAt("http://example.com")
         Then(duncan) {
-            shouldSee(`the page location`, pathContains("example.com"))
-            shouldSee(`the page title`, equalTo("Example Domain"))
-            shouldSee(`the page content`, containsALink("More information...", "http://www.iana.org/domains/example"))
+            shouldSee(thePageLocation, pathContains("example.com"))
+            shouldSee(thePageTitle, equalTo("Example Domain"))
+            shouldSee(thePageContent, containsALink("More information...", "http://www.iana.org/domains/example"))
         }
     }
 
     @Scenario(2, "Following a link from example.com") fun cant_have_dots_in_quoted_method_names() {
         Given(duncan).loadsThePageAt("http://example.com")
         When(duncan).followsTheLink("More information...", "http://www.iana.org/domains/example")
-        Then(duncan).shouldSee(`the page location`, equalTo(URI("http://www.iana.org/domains/reserved")))
+        Then(duncan).shouldSee(thePageLocation, equalTo(URI("http://www.iana.org/domains/reserved")))
     }
 
     @Scenario(3) fun `Dispensing with the given when then`() {
         duncan.he.loadsThePageAt("http://example.com")
         duncan.he.followsTheLink("More information...", "http://www.iana.org/domains/example")
-        duncan.he.shouldSee(`the page location`, equalTo(URI("http://www.iana.org/domains/reserved")))
+        duncan.he.shouldSee(thePageLocation, equalTo(URI("http://www.iana.org/domains/reserved")))
     }
 }
 //README_TEXT

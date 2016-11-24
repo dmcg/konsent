@@ -8,17 +8,22 @@ import java.net.URI
 
 fun <ResultT> webSelector(description: String, block: Actor<RemoteWebDriver>.() -> ResultT) = selector(description, block)
 
-val `the page location` = webSelector("the page location") {
+
+val thePageLocation = webSelector("the page location") {
     URI.create(driver.currentUrl)
 }
 
-val `the page content` = webSelector("the page content") {
+val thePageContent = webSelector("the page content") {
     driver.findElementByTagName("body") as RemoteWebElement?
 }
 
-val `the page title` = webSelector("the page title") {
+val thePageTitle = webSelector("the page title") {
     driver.title
 }
+
+@Deprecated("too cutesy", replaceWith = ReplaceWith("thePageLocation")) val `the page location` = thePageLocation
+@Deprecated("too cutesy", replaceWith = ReplaceWith("thePageContent")) val `the page content` = thePageContent
+@Deprecated("too cutesy", replaceWith = ReplaceWith("thePageTitle")) val `the page title` = thePageTitle
 
 
 
