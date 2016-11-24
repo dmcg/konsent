@@ -1,0 +1,13 @@
+Feature: Better English Tests
+
+    Scenario: uses 'and' instead of repeating clause
+        Given Duncan does a thing named "Duncan's thing"
+        and Fred does a thing named "Fred's thing"
+        Then Fred sees the last thing happened is equal to "Fred's thing happened"
+        and Duncan sees the last thing happened is equal to "Fred's thing happened"
+
+    Scenario: uses 'and' instead of repeating name
+        Given Duncan does a thing named "Duncan's thing"
+        Then Duncan sees the last thing happened is equal to "Duncan's thing happened"
+        and sees the last thing happened is not equal to "Fred's thing happened"
+        and Fred sees the last thing happened is equal to "Duncan's thing happened"

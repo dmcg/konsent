@@ -5,8 +5,8 @@ import com.oneeyedmen.konsent.FeatureRecorder
 import com.oneeyedmen.okeydoke.Transcript
 
 class TranscriptFeatureRecorder(val transcript: Transcript, val indent: Int = 4) : FeatureRecorder {
-    private var lastActor: Actor<*>? = null
     private var lastTermName: String? = null
+    private var lastActor: Actor<*>? = null
 
     override fun featureStart(name: String, vararg preamble: String) {
         transcript.append("Feature: ").appendLine(name)
@@ -39,8 +39,8 @@ class TranscriptFeatureRecorder(val transcript: Transcript, val indent: Int = 4)
     private fun prefixOrAnd(termName: String, actor: Actor<*>) =
         when {
             termName == lastTermName && actor == lastActor -> "and"
-            termName == lastTermName -> actor.name
+            termName == lastTermName -> "and ${actor.name}"
             termName.isBlank() -> actor.name
-            else -> termName + " " + actor.name
+            else -> "$termName ${actor.name}"
         }
 }
