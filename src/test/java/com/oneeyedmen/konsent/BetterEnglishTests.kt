@@ -7,21 +7,31 @@ import org.junit.runner.RunWith
 class BetterEnglishTests : AcceptanceTest() {
 
     val driver = DummyDriver()
-    val duncan = Actor.with("Duncan", driver, recorder)
-    val fred = Actor.with("Fred", driver, recorder)
+    val duncan = Actor.with("Duncan", "he", driver, recorder)
+    val alice = Actor.with("Alice", "she", driver, recorder)
 
     @Scenario(1) fun `uses 'and' instead of repeating clause`() {
         Given(duncan).doesAThing("Duncan's thing")
-        Given(fred).doesAThing("Fred's thing")
-        Then(fred).shouldSee(theLastThingHappened, equalTo("Fred's thing happened"))
-        Then(duncan).shouldSee(theLastThingHappened, equalTo("Fred's thing happened"))
+        Given(alice).doesAThing("Alice's thing")
+        Then(alice).shouldSee(theLastThingHappened, equalTo("Alice's thing happened"))
+        Then(duncan).shouldSee(theLastThingHappened, equalTo("Alice's thing happened"))
     }
 
-    @Scenario(2) fun `uses 'and' instead of repeating name`() {
+    @Scenario(2) fun `uses 'and' instead of repeating name and operation`() {
         Given(duncan).doesAThing("Duncan's thing")
         Then(duncan).shouldSee(theLastThingHappened, equalTo("Duncan's thing happened"))
-        Then(duncan).shouldSee(theLastThingHappened, equalTo("Fred's thing happened").not())
-        Then(fred).shouldSee(theLastThingHappened, equalTo("Duncan's thing happened"))
+        Then(duncan).shouldSee(theLastThingHappened, equalTo("Alice's thing happened").not())
+        Then(alice).shouldSee(theLastThingHappened, equalTo("Duncan's thing happened"))
+    }
+
+    @Scenario(3) fun `uses 'he' instead of repeating name`() {
+        Then(duncan).doesAThing("Duncan's thing")
+        Then(duncan).shouldSee(theLastThingHappened, equalTo("Duncan's thing happened"))
+    }
+
+    @Scenario(4) fun `uses 'he' instead of repeating name with anonymous term`() {
+        duncan.he.doesAThing("Duncan's thing")
+        duncan.he.shouldSee(theLastThingHappened, equalTo("Duncan's thing happened"))
     }
 
 }

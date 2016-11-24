@@ -4,16 +4,16 @@ Feature: Konsent Example Tests
 
     Scenario: Example_dot_com loads
         Given Duncan loads the page at "http://example.com"
-        Then Duncan sees the page location "location contains "example.com"
-        and sees the page title is equal to "Example Domain"
-        and sees the page content contains a link [More information...](http://www.iana.org/domains/example)
+        Then he sees the page location "location contains "example.com"
+        and the page title is equal to "Example Domain"
+        and the page content contains a link [More information...](http://www.iana.org/domains/example)
 
     Scenario: Following a link from example.com
         Given Duncan loads the page at "http://example.com"
-        When Duncan follows the link [More information...](http://www.iana.org/domains/example)
-        Then Duncan sees the page location is equal to http://www.iana.org/domains/reserved
+        When he follows the link [More information...](http://www.iana.org/domains/example)
+        Then he sees the page location is equal to http://www.iana.org/domains/reserved
 
     Scenario: Dispensing with the given when then
         Duncan loads the page at "http://example.com"
-        Duncan follows the link [More information...](http://www.iana.org/domains/example)
-        Duncan sees the page location is equal to http://www.iana.org/domains/reserved
+        he follows the link [More information...](http://www.iana.org/domains/example)
+        he sees the page location is equal to http://www.iana.org/domains/reserved

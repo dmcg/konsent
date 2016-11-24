@@ -26,7 +26,7 @@ class Steps<DriverT>(val actor: Actor<DriverT>, val driver: DriverT, val recorde
         record(stepName)
         block()
     }
-    fun record(vararg args: Any) = recorder.term(term, actor, *args)
+    fun record(operation: String, vararg args: Any) = recorder.term(term, actor, operation, *args)
 
 }
 

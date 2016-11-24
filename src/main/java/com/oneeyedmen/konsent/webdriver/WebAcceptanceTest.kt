@@ -17,6 +17,6 @@ open class WebAcceptanceTest : AcceptanceTest() {
         }
     }
 
-    fun actorNamed(name: String) = Actor.with(name, driver, recorder)
+    fun actorNamed(name: String, pronoun: String = "he") = Actor.with(name, pronoun, driver, recorder)
 }
 
