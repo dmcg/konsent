@@ -5,8 +5,8 @@ Feature: Konsent Example Tests
     Scenario: Example_dot_com loads
         Given Duncan loads the page at "http://example.com"
         Then Duncan sees the page location "location contains "example.com"
-        and Duncan sees the page title is equal to "Example Domain"
-        and Duncan sees the page content contains a link [More information...](http://www.iana.org/domains/example)
+        and sees the page title is equal to "Example Domain"
+        and sees the page content contains a link [More information...](http://www.iana.org/domains/example)
 
     Scenario: Following a link from example.com
         Given Duncan loads the page at "http://example.com"

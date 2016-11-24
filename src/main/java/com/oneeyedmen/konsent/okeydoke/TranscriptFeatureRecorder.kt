@@ -1,10 +1,11 @@
 package com.oneeyedmen.konsent.okeydoke
 
+import com.oneeyedmen.konsent.Actor
 import com.oneeyedmen.konsent.FeatureRecorder
 import com.oneeyedmen.okeydoke.Transcript
 
 class TranscriptFeatureRecorder(val transcript: Transcript, val indent: Int = 4) : FeatureRecorder {
-
+    private var lastActor: Actor<*>? = null
     private var lastTermName: String? = null
 
     override fun featureStart(name: String, vararg preamble: String) {
@@ -19,10 +20,12 @@ class TranscriptFeatureRecorder(val transcript: Transcript, val indent: Int = 4)
         indent(1).append("Scenario: ").appendLine(name)
     }
 
-    override fun term(termName: String?, vararg items: Any) {
-        indent(2).appendLine(collectTerms(termName, *items).joinToString(" "))
+    override fun term(termName: String?, actor: Actor<*>, vararg items: Any) {
+        indent(2).appendLine(collectTerms(termName, actor, *items).joinToString(" "))
+        lastActor = actor
         lastTermName = termName
     }
+
 
     private fun indent(level: Int): Transcript {
         if (transcript.isStartOfLine)
@@ -30,9 +33,14 @@ class TranscriptFeatureRecorder(val transcript: Transcript, val indent: Int = 4)
         return transcript
     }
 
-    private fun collectTerms(termName: String?, vararg items: Any) : List<Any> =
-        if (termName == null) items.toList()
-        else listOf(termNameOrAnd(termName)).plus(items)
+    private fun collectTerms(termName: String?, actor: Actor<*>, vararg items: Any) : List<Any> =
+        listOf(prefixOrAnd(termName.orEmpty(), actor)).plus(items)
 
-    private fun termNameOrAnd(termName: String) = if (termName == lastTermName) "and" else termName
+    private fun prefixOrAnd(termName: String, actor: Actor<*>) =
+        when {
+            termName == lastTermName && actor == lastActor -> "and"
+            termName == lastTermName -> actor.name
+            termName.isBlank() -> actor.name
+            else -> termName + " " + actor.name
+        }
 }
