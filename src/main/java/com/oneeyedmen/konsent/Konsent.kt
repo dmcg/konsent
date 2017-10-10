@@ -17,10 +17,14 @@ class Konsent(klass: Class<*>) : BlockJUnit4ClassRunner(klass) {
         .sortedBy { it.getAnnotation(Scenario::class.java).index }
 
     // we fake a FeatureRule attached to the class
-    override fun classRules(): List<TestRule> = super.classRules().apply { add(featureRule) }
+    override fun classRules(): List<TestRule> = super.classRules().apply {
+        add(featureRule)
+    }
 
     // and a ScenarioRule attached to the instance
-    override fun getTestRules(target: Any) = super.getTestRules(target).apply { add(ScenarioRule(target, featureRule.recorder)) }
+    override fun getTestRules(target: Any): List<TestRule> = super.getTestRules(target).apply {
+        add(ScenarioRule(target, featureRule.recorder))
+    }
 
     private fun FrameworkMethod.butNamed(newName: String) = if (newName == "") this
         else object: FrameworkMethod(method) {

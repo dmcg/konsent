@@ -11,7 +11,7 @@ class InjectsRecorderTest {
         lateinit var recorder: FeatureRecorder
     }
 
-    val recorderDuringConstruction  = recorder
+    private val recorderDuringConstruction  = recorder
 
     @Scenario(index = 0) fun first() {
         assertNotNull(recorder)
