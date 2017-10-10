@@ -1,5 +1,6 @@
 package com.oneeyedmen.konsent
 
+import com.natpryce.hamkrest.equalTo
 import com.oneeyedmen.konsent.webdriver.*
 import org.junit.Ignore
 import org.junit.runner.RunWith

@@ -33,9 +33,8 @@
     <orderEntry type="library" name="Maven: org.jetbrains.kotlin:kotlin-stdlib:1.1.51" level="project" />
     <orderEntry type="library" name="Maven: org.jetbrains:annotations:13.0" level="project" />
     <orderEntry type="library" name="Maven: org.jetbrains.kotlin:kotlin-stdlib-jre7:1.1.51" level="project" />
-    <orderEntry type="library" name="Maven: com.natpryce:hamkrest:1.2.3.0" level="project" />
-    <orderEntry type="library" name="Maven: org.jetbrains.kotlin:kotlin-reflect:1.0.3" level="project" />
-    <orderEntry type="library" name="Maven: com.oneeyedmen:okeydoke:1.0.6" level="project" />
+    <orderEntry type="library" name="Maven: com.natpryce:hamkrest:1.4.2.0" level="project" />
+    <orderEntry type="library" name="Maven: com.oneeyedmen:okeydoke:1.0.8" level="project" />
     <orderEntry type="library" name="Maven: junit:junit:4.12" level="project" />
     <orderEntry type="library" name="Maven: org.hamcrest:hamcrest-core:1.3" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.seleniumhq.selenium:selenium-java:2.53.0" level="project" />
