@@ -1,16 +1,19 @@
 package com.oneeyedmen.konsent
 
 import com.oneeyedmen.konsent.okeydoke.TranscriptFeatureRecorder
+import com.oneeyedmen.okeydoke.ApproverFactories.fileSystemApproverFactory
+import com.oneeyedmen.okeydoke.Name
 import com.oneeyedmen.okeydoke.junit.ApprovalsRule
 import org.junit.rules.TestRule
 import org.junit.rules.TestWatcher
 import org.junit.runner.Description
 import org.junit.runners.BlockJUnit4ClassRunner
 import org.junit.runners.model.FrameworkMethod
+import java.io.File
 
 class Konsent(klass: Class<*>) : BlockJUnit4ClassRunner(klass) {
 
-    private val featureRule = FeatureRule(ApprovalsRule.usualRule())
+    private val featureRule = FeatureRule(approvalsRule(File("src/test/java")))
 
     override fun computeTestMethods() = testClass.getAnnotatedMethods(Scenario::class.java)
         .map { it.butNamed(it.getAnnotation(Scenario::class.java).name)}
@@ -32,6 +35,12 @@ class Konsent(klass: Class<*>) : BlockJUnit4ClassRunner(klass) {
         }
 }
 
+private fun approvalsRule(sourceRoot: File): ApprovalsRule {
+    return ApprovalsRule(
+        fileSystemApproverFactory(sourceRoot)
+    )
+}
+
 private class FeatureRule(private val approvalsRule: ApprovalsRule) : TestWatcher() {
 
     lateinit var recorder: FeatureRecorder
@@ -39,7 +48,7 @@ private class FeatureRule(private val approvalsRule: ApprovalsRule) : TestWatche
     override fun starting(description: Description) {
         approvalsRule.starting(description)
         recorder = TranscriptFeatureRecorder(approvalsRule.transcript())
-        recorder.featureStart(nameFromClassName(description.testClass), *preambleFor(description.testClass))
+        recorder.featureStart(featureNameFrom(description), *preambleFor(description.testClass))
         injectRecorder(description.testClass, null, recorder)
     }
 
@@ -53,9 +62,6 @@ private class FeatureRule(private val approvalsRule: ApprovalsRule) : TestWatche
         approvalsRule.succeeded(description)
     }
 
-    private val spaceOutCamelCase = Regex("(\\p{Ll})(\\p{Lu})")
-    private fun String.`space Out Camel Case`() = this.replace(spaceOutCamelCase, "$1 $2")
-    private fun nameFromClassName(clazz: Class<*>) = clazz.simpleName.`space Out Camel Case`()
 }
 
 private class ScenarioRule(private val target: Any, private val recorder: FeatureRecorder) : TestWatcher() {
@@ -68,3 +74,12 @@ private class ScenarioRule(private val target: Any, private val recorder: Featur
 private fun <T> injectRecorder(clazz: Class<T>, target: T?, recorder: FeatureRecorder) {
     clazz.fields.filter { it.type == FeatureRecorder::class.java }.forEach { it.set(target, recorder) }
 }
+
+private val spaceOutCamelCase = Regex("(\\p{Ll})(\\p{Lu})")
+private fun String.`space Out Camel Case`() = this.replace(spaceOutCamelCase, "$1 $2")
+
+private fun featureNameFrom(description: Description) =
+    nameFromClassAnnotation(description) ?: description.testClass.simpleName.`space Out Camel Case`()
+
+private fun nameFromClassAnnotation(description: Description): String? =
+    description.testClass?.getAnnotation(Name::class.java)?.value
