@@ -1,9 +1,11 @@
 package com.oneeyedmen.konsent
 
+import com.oneeyedmen.okeydoke.Name
 import org.junit.runner.RunWith
 
 
 @RunWith(Konsent::class)
+@Name("Test Runner Renaming Tests")
 class TestRunnerNamingTests : AcceptanceTest() {
 
     @Scenario(0, "1") fun first() {}
