@@ -3,7 +3,7 @@
 
     <groupId>com.oneeyedmen</groupId>
     <artifactId>konsent</artifactId>
-    <version>1.0.6-SNAPSHOT</version>
+    <version>1.0.6</version>
     <packaging>jar</packaging>
 
     <name>kosent</name>
@@ -33,7 +33,7 @@
         <connection>scm:git:git@github.com:dmcg/konsent.git</connection>
         <developerConnection>scm:git:git@github.com:dmcg/konsent.git</developerConnection>
         <url>https://github.com/dmcg/konsent</url>
-      <tag>HEAD</tag>
+      <tag>konsent-1.0.6</tag>
     </scm>
 
     <dependencies>
